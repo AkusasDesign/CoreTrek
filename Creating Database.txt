@@ -1,0 +1,22 @@
+/* Create a database with the name simplepress (play on words of a simple WordPress). I use the IF NOT EXISTS statement as a habit to be certain that the database doesn't already exist in the system. */
+CREATE DATABASE IF NOT EXISTS simplepress;
+
+/* Create a table for the users in the simplepress database. UserID is auto incremented using AUTO_INCREMENT, so that the IDs are unique. The username and password both have a NOT NULL statement due to that if we are creating users, then this is the most important information. You could argue that full name doesn't need the NOT NULL statement, but in this case it does as the application will be displaying the full names. In a real-world scenario this might not be the case. We also want the usename to be UNIQUE, so that no two people have the same username. */
+CREATE TABLE IF NOT EXISTS simplepress.Users
+(
+	UserID INT AUTO_INCREMENT,
+    UserName VARCHAR(50) NOT NULL UNIQUE,
+    UserPassword VARCHAR(255) NOT NULL,
+    UserFullName VARCHAR(255) NOT NULL,
+    PRIMARY KEY (UserID)
+);
+
+/* Create a table for the articles in the simplepress database. ArticleID is auto incremented using AUTO_INCREMENT, so that the IDs are unique. The title and content both have the NOT NULL statement. There could be a debate as to if this is needed. I've chosen to use it, so that I know that there will always be a title and content to be shown. And lastly we have the UserID that is the ID of the user that created the article. */
+CREATE TABLE IF NOT EXISTS simplepress.Articles
+(
+	ArticleID INT AUTO_INCREMENT,
+    ArticleTitle VARCHAR(255) NOT NULL,
+    ArticleContent VARCHAR(255) NOT NULL,
+    UserID INT NOT NULL,
+    PRIMARY KEY (ArticleID)
+);
